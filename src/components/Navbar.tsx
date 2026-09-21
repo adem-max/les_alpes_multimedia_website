@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Sparkles, Menu, X, PhoneCall, ShieldCheck, ChevronRight } from 'lucide-react';
+import { Menu, X, ShieldCheck, ChevronRight } from 'lucide-react';
 import { PageRoute } from '../types';
+import brandLogo from '../assets/images/alpes_multiservices_logo_1790023154905.jpg';
 
 interface NavbarProps {
   currentPath: PageRoute;
@@ -67,8 +68,13 @@ export const Navbar: React.FC<NavbarProps> = ({
             onClick={() => handleNavigate('/')}
             className="flex items-center gap-3 text-left group cursor-pointer focus:outline-hidden"
           >
-            <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-teal-600 to-emerald-700 flex items-center justify-center text-white shadow-md shadow-teal-900/10 group-hover:scale-105 transition-transform duration-200">
-              <Sparkles className="w-6 h-6" />
+            <div className="w-12 h-12 rounded-xl overflow-hidden shadow-md shadow-slate-900/10 group-hover:scale-105 transition-transform duration-200 border border-slate-200/80 bg-slate-900 shrink-0">
+              <img
+                src={brandLogo}
+                alt="Logo Les Alpes Multiservices"
+                className="w-full h-full object-cover"
+                referrerPolicy="no-referrer"
+              />
             </div>
             <div>
               <span className="block text-xl font-bold tracking-tight text-slate-900 font-serif">

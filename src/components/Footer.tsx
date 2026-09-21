@@ -1,6 +1,7 @@
 import React from 'react';
 import { PageRoute, SiteLegalConfig } from '../types';
-import { Sparkles, MapPin, Mail, Phone, Shield, FileText, CheckCircle2, Lock } from 'lucide-react';
+import { MapPin, Mail, Phone, Shield, FileText, CheckCircle2, Lock } from 'lucide-react';
+import brandLogo from '../assets/images/alpes_multiservices_logo_1790023154905.jpg';
 
 interface FooterProps {
   navigate: (path: PageRoute) => void;
@@ -25,8 +26,13 @@ export const Footer: React.FC<FooterProps> = ({
           {/* Col 1: Brand & Presentation */}
           <div className="space-y-4">
             <div className="flex items-center gap-3 text-white">
-              <div className="w-10 h-10 rounded-xl bg-teal-600 flex items-center justify-center text-white shadow-md">
-                <Sparkles className="w-5 h-5" />
+              <div className="w-11 h-11 rounded-xl overflow-hidden shadow-md border border-slate-800 bg-slate-900 shrink-0">
+                <img
+                  src={brandLogo}
+                  alt="Logo Les Alpes Multiservices"
+                  className="w-full h-full object-cover"
+                  referrerPolicy="no-referrer"
+                />
               </div>
               <div>
                 <span className="block text-lg font-bold font-serif tracking-tight">
