@@ -1,0 +1,6 @@
+{
+  "name": "Les Alpes Multiservices",
+  "description": "Services de ménage à domicile et entretien résidentiel à Annecy et dans le bassin annécien.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
