@@ -1,17 +1,15 @@
 import React from 'react';
 import { PageRoute, SiteLegalConfig } from '../types';
-import { Shield, AlertTriangle, FileText, CheckCircle2, ChevronRight, Server, Building2, Mail, Phone, MapPin } from 'lucide-react';
+import { Shield, FileText, CheckCircle2, ChevronRight, Server, Building2, Mail, Phone, MapPin } from 'lucide-react';
 
 interface MentionsLegalesPageProps {
   navigate: (path: PageRoute) => void;
   legalConfig: SiteLegalConfig;
-  onOpenChecklist: () => void;
 }
 
 export const MentionsLegalesPage: React.FC<MentionsLegalesPageProps> = ({
   navigate,
   legalConfig,
-  onOpenChecklist,
 }) => {
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-10">
@@ -28,44 +26,6 @@ export const MentionsLegalesPage: React.FC<MentionsLegalesPageProps> = ({
           Dernière mise à jour : {new Date().toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' })}
         </p>
       </div>
-
-      {/* Notice for Owner Placeholders / Validation Status */}
-      {legalConfig.publisherName.includes('[TODO') || legalConfig.siretNumber.includes('[TODO') ? (
-        <div className="p-4 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-xs flex items-start justify-between gap-4">
-          <div className="flex items-start gap-3">
-            <AlertTriangle className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
-            <div>
-              <span className="font-bold block mb-0.5">
-                Champs obligatoires à compléter avant mise en ligne définitive
-              </span>
-              <p className="text-amber-800 leading-relaxed">
-                Les éléments encadrés par des crochets <code>[TODO: ...]</code> représentent les données légales à renseigner.
-              </p>
-            </div>
-          </div>
-          <button
-            onClick={onOpenChecklist}
-            className="shrink-0 bg-amber-200/80 hover:bg-amber-300 text-amber-900 font-semibold px-3 py-1.5 rounded-lg transition-colors cursor-pointer text-xs"
-          >
-            Checklist
-          </button>
-        </div>
-      ) : (
-        <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-900 text-xs flex items-center justify-between gap-4">
-          <div className="flex items-center gap-2.5">
-            <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-            <span className="font-medium text-emerald-800">
-              Mentions légales 100% complètes et conformes aux exigences LCEN, Code de la consommation et RGPD.
-            </span>
-          </div>
-          <button
-            onClick={onOpenChecklist}
-            className="shrink-0 bg-emerald-100 hover:bg-emerald-200 text-emerald-900 font-semibold px-2.5 py-1 rounded-md transition-colors cursor-pointer text-[11px]"
-          >
-            Vérifier
-          </button>
-        </div>
-      )}
 
       {/* Structure Exactement Conforme au Cahier des Charges (§3) */}
       <div className="bg-white rounded-2xl border border-slate-200 divide-y divide-slate-200 shadow-xs overflow-hidden">

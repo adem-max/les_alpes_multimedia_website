@@ -5,13 +5,11 @@ import { Shield, Lock, CheckCircle2, Mail, Database, Clock, Eye, AlertCircle, Fi
 interface ConfidentialitePageProps {
   navigate: (path: PageRoute) => void;
   legalConfig: SiteLegalConfig;
-  onOpenChecklist: () => void;
 }
 
 export const ConfidentialitePage: React.FC<ConfidentialitePageProps> = ({
   navigate,
   legalConfig,
-  onOpenChecklist,
 }) => {
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-10">

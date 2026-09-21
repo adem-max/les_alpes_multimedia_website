@@ -8,9 +8,9 @@ export const INITIAL_LEGAL_CONFIG: SiteLegalConfig = {
   contactEmail: 'alpesmultiservices@icloud.com',
   contactPhone: '+33 7 67 57 56 59',
   publicationDirector: 'Benaouda BENALLOU',
-  hostName: 'Vercel Inc.',
-  hostAddress: '340 S Lemon Ave #4133, Walnut, CA 91789, USA',
-  hostUrl: 'https://vercel.com',
+  hostName: 'Cloudflare Pages (Cloudflare, Inc.)',
+  hostAddress: '101 Townsend St, San Francisco, CA 94107, USA',
+  hostUrl: 'https://pages.cloudflare.com',
   sapDeclared: false, // Strict compliance: false by default, no unverified tax credit claims
   sapNumber: '',
 };
@@ -30,43 +30,4 @@ export const INTERVENTION_COMMUNES: CommuneZone[] = [
   { name: 'Saint-Jorioz', postalCode: '74410', sector: 'Rives du Lac' },
   { name: 'Villaz', postalCode: '74370', sector: 'Bassin Nord / Est' },
   { name: 'Argonay', postalCode: '74370', sector: 'Bassin Nord / Est' },
-];
-
-export const PRE_LAUNCH_CHECKLIST = [
-  {
-    id: 'legalStatus',
-    label: 'Statut juridique & capital social',
-    desc: 'Auto-entrepreneur, Entreprise Individuelle, SARL ou SAS avec mention du capital.',
-    required: true,
-  },
-  {
-    id: 'siret',
-    label: 'Numéro SIRET',
-    desc: 'Numéro à 14 chiffres délivré par l\'INSEE suite à l\'immatriculation.',
-    required: true,
-  },
-  {
-    id: 'address',
-    label: 'Adresse professionnelle ou de domiciliation',
-    desc: 'Adresse officielle affichée publiquement (domiciliation acceptée pour préserver l\'adresse privée).',
-    required: true,
-  },
-  {
-    id: 'emailPhone',
-    label: 'Email et téléphone publics de contact',
-    desc: 'Adresse email professionnelle pour réception des demandes et notification de rétractation.',
-    required: true,
-  },
-  {
-    id: 'sap',
-    label: 'Déclaration SAP (Services à la Personne)',
-    desc: 'Effectuée via le portail NOVA (nova.entreprises.gouv.fr). Si validée, débloque l\'affichage du crédit d\'impôt de 50%.',
-    required: false,
-  },
-  {
-    id: 'domain',
-    label: 'Nom de domaine recommandé (.fr via Afnic)',
-    desc: 'Pour les particuliers, le WHOIS est masqué automatiquement par l\'Afnic sans frais supplémentaires.',
-    required: true,
-  },
 ];

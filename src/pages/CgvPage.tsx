@@ -5,13 +5,11 @@ import { FileText, Copy, Check, AlertCircle, ShieldAlert, CheckCircle2, ChevronR
 interface CgvPageProps {
   navigate: (path: PageRoute) => void;
   legalConfig: SiteLegalConfig;
-  onOpenChecklist: () => void;
 }
 
 export const CgvPage: React.FC<CgvPageProps> = ({
   navigate,
   legalConfig,
-  onOpenChecklist,
 }) => {
   const [copiedForm, setCopiedForm] = useState(false);
 

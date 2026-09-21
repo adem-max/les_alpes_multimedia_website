@@ -6,13 +6,11 @@ import brandLogo from '../assets/images/alpes_multiservices_logo_1790023154905.j
 interface FooterProps {
   navigate: (path: PageRoute) => void;
   legalConfig: SiteLegalConfig;
-  onOpenChecklist: () => void;
 }
 
 export const Footer: React.FC<FooterProps> = ({
   navigate,
   legalConfig,
-  onOpenChecklist,
 }) => {
   const handleNav = (path: PageRoute) => {
     navigate(path);
@@ -168,15 +166,6 @@ export const Footer: React.FC<FooterProps> = ({
                 </div>
               </li>
             </ul>
-
-            <div className="mt-5 pt-4 border-t border-slate-800">
-              <button
-                onClick={onOpenChecklist}
-                className="inline-flex items-center gap-2 text-xs bg-slate-900 hover:bg-slate-800 text-teal-400 border border-slate-700 px-3 py-1.5 rounded-md transition-colors"
-              >
-                <span>Vérifier la conformité légale</span>
-              </button>
-            </div>
           </div>
         </div>
 

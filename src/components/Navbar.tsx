@@ -7,14 +7,12 @@ interface NavbarProps {
   currentPath: PageRoute;
   navigate: (path: PageRoute) => void;
   sapDeclared: boolean;
-  onOpenChecklist: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
   currentPath,
   navigate,
   sapDeclared,
-  onOpenChecklist,
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -47,15 +45,9 @@ export const Navbar: React.FC<NavbarProps> = ({
             )}
           </div>
           <div className="flex items-center gap-4 text-[11px] text-slate-300">
-            <button
-              onClick={onOpenChecklist}
-              className="inline-flex items-center gap-1 text-teal-300 hover:text-white underline underline-offset-2 transition-colors cursor-pointer"
-              title="Vérifier les champs légaux avant mise en ligne"
-            >
-              <span>Contrôle & Conformité Légale</span>
-            </button>
-            <span className="text-slate-500">|</span>
-            <span>Devis sous 24h</span>
+            <span className="hidden sm:inline text-slate-400">Grand Annecy & Rives du Lac</span>
+            <span className="hidden sm:inline text-slate-600">•</span>
+            <span className="text-teal-300 font-medium">Devis gratuit sous 24h</span>
           </div>
         </div>
       </div>
@@ -151,22 +143,13 @@ export const Navbar: React.FC<NavbarProps> = ({
             );
           })}
 
-          <div className="pt-3 border-t border-slate-100 space-y-2">
+          <div className="pt-3 border-t border-slate-100">
             <button
               onClick={() => handleNavigate('/contact')}
               className="w-full flex items-center justify-center gap-2 bg-teal-700 hover:bg-teal-800 text-white font-medium py-3 rounded-lg shadow-sm"
             >
               <span>Demander un devis gratuit</span>
               <ChevronRight className="w-4 h-4" />
-            </button>
-            <button
-              onClick={() => {
-                setMobileMenuOpen(false);
-                onOpenChecklist();
-              }}
-              className="w-full text-center text-xs text-slate-500 hover:text-slate-800 py-2"
-            >
-              Contrôle & Conformité Légale
             </button>
           </div>
         </div>
