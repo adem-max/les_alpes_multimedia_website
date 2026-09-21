@@ -204,7 +204,16 @@ export const ContactPage: React.FC<ContactPageProps> = ({ navigate, legalConfig 
                     )}
                   </div>
 
-                  <div className="pt-4">
+                  <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
+                    <a
+                      href={`mailto:${legalConfig.contactEmail}?subject=${encodeURIComponent(`Demande de devis - ${formData.fullName}`)}&body=${encodeURIComponent(
+                        `Bonjour Les Alpes Multiservices,\n\nVoici le récapitulatif de ma demande de devis :\n- Nom : ${formData.fullName}\n- Email : ${formData.email}\n- Téléphone : ${formData.phone || 'Non renseigné'}\n- Prestation : ${formData.serviceType}\n- Fréquence : ${formData.frequency}\n- Commune / Lieu : ${formData.addressOrCity || 'Non renseigné'}\n- Surface : ${formData.surfaceApprox ? `${formData.surfaceApprox} m²` : 'Non renseignée'}\n- Message : ${formData.message}\n\nCordialement,\n${formData.fullName}`
+                      )}`}
+                      className="inline-flex items-center gap-2 bg-teal-700 hover:bg-teal-800 text-white text-xs font-semibold px-5 py-2.5 rounded-xl shadow-xs transition-colors"
+                    >
+                      <Mail className="w-3.5 h-3.5" />
+                      <span>Envoyer une copie depuis ma boîte mail</span>
+                    </a>
                     <button
                       onClick={() => {
                         setSubmitted(false);
@@ -221,9 +230,9 @@ export const ContactPage: React.FC<ContactPageProps> = ({ navigate, legalConfig 
                           honeypot: '',
                         });
                       }}
-                      className="px-6 py-2.5 rounded-xl border border-slate-300 hover:border-slate-800 text-slate-700 text-xs font-semibold transition-colors"
+                      className="px-5 py-2.5 rounded-xl border border-slate-300 hover:border-slate-800 text-slate-700 text-xs font-semibold transition-colors"
                     >
-                      Envoyer une autre demande
+                      Nouvelle demande
                     </button>
                   </div>
                 </div>
