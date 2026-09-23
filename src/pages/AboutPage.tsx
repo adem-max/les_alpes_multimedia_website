@@ -88,7 +88,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ navigate, legalConfig }) =
               <div className="pt-4 border-t border-teal-700/50">
                 <button
                   onClick={() => navigate('/contact')}
-                  className="w-full py-3 bg-white hover:bg-slate-100 text-slate-950 font-bold text-xs sm:text-sm rounded-xl transition-colors text-center"
+                  className="min-h-[44px] w-full py-3 bg-white hover:bg-slate-100 text-slate-950 font-bold text-xs sm:text-sm rounded-xl transition-colors text-center cursor-pointer inline-flex items-center justify-center"
                 >
                   Prendre contact avec nous
                 </button>

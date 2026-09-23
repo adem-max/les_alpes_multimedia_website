@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Menu, X, ShieldCheck, ChevronRight } from 'lucide-react';
+import { Menu, X, ShieldCheck, ChevronRight, Sparkles } from 'lucide-react';
 import { PageRoute } from '../types';
 import brandLogo from '../assets/images/alpes_multiservices_logo_1790023154905.jpg';
 
@@ -72,9 +72,10 @@ export const Navbar: React.FC<NavbarProps> = ({
               <span className="block text-xl font-bold tracking-tight text-slate-900 font-serif">
                 Les Alpes Multiservices
               </span>
-              <span className="block text-xs font-medium text-teal-700 tracking-wide uppercase">
-                Ménage à domicile • Annecy
-              </span>
+              <div className="flex items-center gap-1.5 text-xs font-medium text-teal-700 tracking-wide uppercase">
+                <Sparkles className="w-4 h-4 text-teal-600 shrink-0" aria-hidden="true" />
+                <span>Ménage à domicile • Annecy</span>
+              </div>
             </div>
           </button>
 

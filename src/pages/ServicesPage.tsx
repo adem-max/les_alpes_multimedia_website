@@ -295,7 +295,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ navigate, legalConfi
               <span>Dois-je être présent(e) pendant le ménage ?</span>
             </h3>
             <p className="text-xs text-slate-600 mt-2 leading-relaxed">
-              Non. La plupart de nos clients nous confient un double de clés en toute sérénité. Une première rencontre est toutefois organisée ensemble lors de la première intervention pour valider les consignes.
+              Non. Vous êtes libre d&apos;être présent(e) ou de nous confier un double de clés sécurisé. Une première visite préalable est systématiquement organisée ensemble avant le début des prestations afin de valider vos consignes et vos habitudes.
             </p>
           </div>
 

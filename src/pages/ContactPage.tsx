@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { PageRoute, SiteLegalConfig, ServiceType, QuoteFormState } from '../types';
-import { Mail, Phone, MapPin, Send, CheckCircle2, Shield, AlertCircle, Info, Clock, Check } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, CheckCircle2, Shield, AlertCircle, Info, Clock, Check, ExternalLink } from 'lucide-react';
 
 interface ContactPageProps {
   navigate: (path: PageRoute) => void;
@@ -72,15 +72,15 @@ export const ContactPage: React.FC<ContactPageProps> = ({ navigate, legalConfig 
   return (
     <div className="space-y-16 pb-16">
       {/* Header Banner */}
-      <section className="bg-slate-900 text-white py-16 px-4 sm:px-6 lg:px-8 border-b border-slate-800">
-        <div className="max-w-4xl mx-auto text-center space-y-4">
+      <section className="bg-slate-900 text-white py-8 sm:py-14 px-4 sm:px-6 lg:px-8 border-b border-slate-800">
+        <div className="max-w-4xl mx-auto text-center space-y-3 sm:space-y-4">
           <span className="text-xs font-semibold uppercase tracking-wider text-teal-400 block">
             Devis Gratuit & Sans Engagement
           </span>
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-serif tracking-tight">
+          <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold font-serif tracking-tight">
             Contactez Les Alpes Multiservices
           </h1>
-          <p className="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+          <p className="text-slate-300 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
             Remplissez le formulaire ci-dessous pour recevoir une estimation rapide et sur mesure sous 24h ouvrées.
           </p>
         </div>
@@ -88,97 +88,25 @@ export const ContactPage: React.FC<ContactPageProps> = ({ navigate, legalConfig 
 
       {/* Main Form Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-          {/* Left: Contact Info & Reassurance */}
-          <div className="lg:col-span-4 space-y-6">
-            <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs space-y-6">
-              <div>
-                <h2 className="text-lg font-bold font-serif text-slate-900 mb-1">
-                  Coordonnées directes
-                </h2>
-                <p className="text-xs text-slate-500">
-                  Nous répondons à vos messages du lundi au samedi de 8h à 19h.
-                </p>
-              </div>
-
-              <div className="space-y-4 text-xs text-slate-700">
-                <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-teal-50 text-teal-700 flex items-center justify-center shrink-0">
-                    <Mail className="w-4 h-4" />
-                  </div>
-                  <div className="overflow-hidden">
-                    <span className="block font-semibold text-slate-900">Email de contact :</span>
-                    <a
-                      href={`mailto:${legalConfig.contactEmail}`}
-                      className="font-mono text-teal-800 hover:text-teal-900 underline break-all text-xs"
-                    >
-                      {legalConfig.contactEmail}
-                    </a>
-                  </div>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+          {/* Quote Request Form (order-1 on mobile so first input is well above the fold, order-2 on lg) */}
+          <div className="order-1 lg:order-2 lg:col-span-8">
+            <div className="bg-white rounded-3xl border border-slate-200 p-5 sm:p-8 lg:p-10 shadow-xs">
+              {/* Service Reassurance Intro Block */}
+              <div className="mb-6 p-4 rounded-2xl bg-teal-50/70 border border-teal-200/80 shadow-xs flex items-center gap-3.5">
+                <div className="w-11 h-11 rounded-xl bg-teal-700 text-white flex items-center justify-center shrink-0 shadow-xs">
+                  <Clock className="w-5 h-5" />
                 </div>
-
-                <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-teal-50 text-teal-700 flex items-center justify-center shrink-0">
-                    <Phone className="w-4 h-4" />
+                <div className="space-y-0.5">
+                  <div className="font-bold text-slate-900 text-sm font-serif">
+                    Estimation gratuite & réponse garantie sous 24h ouvrées
                   </div>
-                  <div>
-                    <span className="block font-semibold text-slate-900">Téléphone :</span>
-                    <a
-                      href={`tel:${legalConfig.contactPhone.replace(/\s+/g, '')}`}
-                      className="font-mono text-slate-700 hover:text-teal-800 font-semibold text-xs"
-                    >
-                      {legalConfig.contactPhone}
-                    </a>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-teal-50 text-teal-700 flex items-center justify-center shrink-0">
-                    <MapPin className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <span className="block font-semibold text-slate-900">Adresse :</span>
-                    <span className="text-slate-600 block">{legalConfig.professionalAddress}</span>
-                    <span className="text-[11px] text-teal-700 font-medium">Interventions sur Annecy et tout le Grand Annecy</span>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-teal-50 text-teal-700 flex items-center justify-center shrink-0">
-                    <Clock className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <span className="block font-semibold text-slate-900">Délai de réponse :</span>
-                    <span className="text-slate-600">Sous 24h ouvrées maximum</span>
-                  </div>
+                  <p className="text-xs text-slate-600 leading-relaxed">
+                    Étude personnalisée sans engagement de vos besoins d&apos;entretien ménager sur Annecy et tout le bassin lacustre.
+                  </p>
                 </div>
               </div>
-            </div>
 
-            {/* Privacy Promise Box */}
-            <div className="bg-slate-50 rounded-2xl border border-slate-200 p-6 space-y-3 text-xs text-slate-600">
-              <div className="flex items-center gap-2 text-slate-900 font-semibold">
-                <Shield className="w-4 h-4 text-teal-600" />
-                <span>Protection stricte de vos données</span>
-              </div>
-              <p className="leading-relaxed">
-                Conformément à la réglementation RGPD, les informations recueillies dans ce formulaire sont traitées exclusivement pour répondre à votre demande de devis et organiser la prestation.
-              </p>
-              <p className="leading-relaxed">
-                Aucun démarchage commercial ultérieur, aucune vente de données.
-              </p>
-              <button
-                onClick={() => navigate('/confidentialite')}
-                className="text-teal-700 hover:text-teal-900 font-semibold underline underline-offset-2 inline-block pt-1"
-              >
-                Lire notre politique de confidentialité →
-              </button>
-            </div>
-          </div>
-
-          {/* Right: Quote Request Form */}
-          <div className="lg:col-span-8">
-            <div className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-10 shadow-xs">
               {submitted ? (
                 <div className="py-12 text-center space-y-5 animate-in fade-in zoom-in-95 duration-300">
                   <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center mx-auto">
@@ -482,7 +410,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ navigate, legalConfig 
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-teal-700 hover:bg-teal-800 disabled:bg-slate-400 text-white font-semibold px-8 py-3.5 rounded-xl shadow-sm transition-all text-sm cursor-pointer"
+                      className="min-h-[44px] w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-teal-700 hover:bg-teal-800 disabled:bg-slate-400 text-white font-semibold px-8 py-3.5 rounded-xl shadow-sm transition-all text-sm cursor-pointer"
                     >
                       {isSubmitting ? (
                         <span>Envoi de votre demande en cours...</span>
@@ -496,6 +424,102 @@ export const ContactPage: React.FC<ContactPageProps> = ({ navigate, legalConfig 
                   </div>
                 </form>
               )}
+            </div>
+          </div>
+
+          {/* Left Column on Desktop, Secondary on Mobile (order-2 lg:order-1 lg:col-span-4) */}
+          <div className="order-2 lg:order-1 lg:col-span-4 space-y-6">
+            <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs space-y-6">
+              <div>
+                <h2 className="text-lg font-bold font-serif text-slate-900 mb-1">
+                  Coordonnées directes
+                </h2>
+                <p className="text-xs text-slate-500">
+                  Nous répondons à vos messages du lundi au samedi de 8h à 19h.
+                </p>
+              </div>
+
+              <div className="space-y-4 text-xs text-slate-700">
+                <div className="flex items-start gap-3">
+                  <div className="w-8 h-8 rounded-lg bg-teal-50 text-teal-700 flex items-center justify-center shrink-0">
+                    <Mail className="w-4 h-4" />
+                  </div>
+                  <div className="overflow-hidden">
+                    <span className="block font-semibold text-slate-900">Email de contact :</span>
+                    <a
+                      href={`mailto:${legalConfig.contactEmail}`}
+                      className="font-mono text-teal-800 hover:text-teal-900 underline break-all text-xs"
+                    >
+                      {legalConfig.contactEmail}
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3">
+                  <div className="w-8 h-8 rounded-lg bg-teal-50 text-teal-700 flex items-center justify-center shrink-0">
+                    <Phone className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <span className="block font-semibold text-slate-900">Téléphone :</span>
+                    <a
+                      href={`tel:${legalConfig.contactPhone.replace(/\s+/g, '')}`}
+                      className="font-mono text-slate-700 hover:text-teal-800 font-semibold text-xs"
+                    >
+                      {legalConfig.contactPhone}
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3">
+                  <div className="w-8 h-8 rounded-lg bg-teal-50 text-teal-700 flex items-center justify-center shrink-0">
+                    <MapPin className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <span className="block font-semibold text-slate-900">Adresse :</span>
+                    <span className="text-slate-600 block">{legalConfig.professionalAddress}</span>
+                    <a
+                      href="https://www.google.com/maps/place/Les+alpes+multiservices/@45.9063032,6.1071561,19z/data=!4m6!3m5!1s0x478b852e993cd721:0xe6f58a9e8412ca0f!8m2!3d45.9063032!4d6.1071561!16s%2Fg%2F11y1_9y8k7"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-[11px] text-teal-700 hover:text-teal-900 font-semibold underline underline-offset-2 mt-0.5"
+                    >
+                      <span>Voir sur Google Maps (Repère exact)</span>
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3">
+                  <div className="w-8 h-8 rounded-lg bg-teal-50 text-teal-700 flex items-center justify-center shrink-0">
+                    <Clock className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <span className="block font-semibold text-slate-900">Délai de réponse :</span>
+                    <span className="text-slate-600">Sous 24h ouvrées maximum</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Privacy Promise Box */}
+            <div className="bg-slate-50 rounded-2xl border border-slate-200 p-6 space-y-3 text-xs text-slate-600">
+              <div className="flex items-center gap-2 text-slate-900 font-semibold">
+                <Shield className="w-4 h-4 text-teal-600" />
+                <span>Protection stricte de vos données</span>
+              </div>
+              <p className="leading-relaxed">
+                Conformément à la réglementation RGPD, les informations recueillies dans ce formulaire sont traitées exclusivement pour répondre à votre demande de devis et organiser la prestation.
+              </p>
+              <p className="leading-relaxed">
+                Aucun démarchage commercial ultérieur, aucune cession de données.
+              </p>
+              <button
+                type="button"
+                onClick={() => navigate('/confidentialite')}
+                className="text-teal-700 hover:text-teal-900 font-semibold underline underline-offset-2 inline-block pt-1 cursor-pointer"
+              >
+                Lire notre politique de confidentialité →
+              </button>
             </div>
           </div>
         </div>
