@@ -22,7 +22,7 @@ export const siteSettingsSchema = {
       name: 'publisherName',
       title: 'Identité de l\'exploitant / Raison sociale',
       type: 'string',
-      description: 'Obligatoire (LCEN art. 6-III) : Nom et prénom ou dénomination sociale',
+      description: 'Obligatoire (LCEN art. 1-1, loi SREN) : Nom et prénom ou dénomination sociale',
     },
     {
       name: 'legalStatus',

@@ -17,7 +17,7 @@ export const MentionsLegalesPage: React.FC<MentionsLegalesPageProps> = ({
       <div className="border-b border-slate-200 pb-6 space-y-2">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 text-slate-700 text-xs font-semibold">
           <FileText className="w-3.5 h-3.5 text-slate-500" />
-          <span>Conformité Loi pour la Confiance dans l&apos;Économie Numérique (LCEN art. 6-III)</span>
+          <span>Conformité Loi pour la Confiance dans l&apos;Économie Numérique (LCEN art. 1-1, loi SREN 2024)</span>
         </div>
         <h1 className="text-3xl font-bold font-serif text-slate-900">
           Mentions Légales
@@ -56,9 +56,12 @@ export const MentionsLegalesPage: React.FC<MentionsLegalesPageProps> = ({
             </div>
 
             <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-100">
-              <dt className="text-slate-500 font-medium mb-1">Numéro SIRET (INSEE) :</dt>
+              <dt className="text-slate-500 font-medium mb-1">Identifiants légaux (SIRET / SIREN) :</dt>
               <dd className="font-mono font-semibold text-slate-900 text-sm">
-                {legalConfig.siretNumber}
+                SIRET : {legalConfig.siretNumber}
+              </dd>
+              <dd className="font-mono text-xs text-slate-500 mt-1">
+                SIREN : {legalConfig.siretNumber.replace(/\s+/g, '').slice(0, 9).replace(/(\d{3})(?=\d)/g, '$1 ')} (Établissement actif)
               </dd>
             </div>
 
