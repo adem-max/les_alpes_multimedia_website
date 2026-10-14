@@ -2,6 +2,9 @@ import React from 'react';
 import { PageRoute, SiteLegalConfig } from '../types';
 import { Shield, Sparkles, MapPin, CheckCircle2, ChevronRight, Key, Award, HeartHandshake, Compass } from 'lucide-react';
 import { AnnecyMap } from '../components/AnnecyMap';
+import showerImg from '../assets/images/real_shower_bathroom_1792000291064.jpg';
+import chaletImg from '../assets/images/real_chalet_bedroom_1792000291663.jpg';
+import woodworkImg from '../assets/images/real_woodwork_storage_1792000292097.jpg';
 
 interface AboutPageProps {
   navigate: (path: PageRoute) => void;
@@ -98,7 +101,79 @@ export const AboutPage: React.FC<AboutPageProps> = ({ navigate, legalConfig }) =
         </div>
       </section>
 
-      {/* Zone d'intervention Map */}
+      {/* Materials & Regional Expertise Showcase */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center max-w-3xl mx-auto mb-10">
+          <span className="text-xs font-semibold uppercase tracking-wider text-teal-700 block mb-1">
+            Savoir-faire de terrain
+          </span>
+          <h2 className="text-2xl sm:text-3xl font-bold font-serif text-slate-900">
+            Le respect des matériaux savoyards en images
+          </h2>
+          <p className="text-sm text-slate-600 mt-2">
+            Des chalets d&apos;alpage aux appartements contemporains du bord du lac, chaque intervention s&apos;adapte aux spécificités des intérieurs de notre région.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="rounded-2xl overflow-hidden border border-slate-200 bg-white shadow-xs">
+            <div className="aspect-4/3 overflow-hidden bg-slate-100">
+              <img
+                src={showerImg}
+                alt="Douche à l'italienne et carrelage terre cuite soigné"
+                className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                referrerPolicy="no-referrer"
+              />
+            </div>
+            <div className="p-5">
+              <h3 className="font-bold text-slate-900 text-sm mb-1.5">
+                Faïences, mosaïques & pièces d&apos;eau
+              </h3>
+              <p className="text-xs text-slate-600 leading-relaxed">
+                Traitement minutieux contre le calcaire montagnard, respect des joints et brillance sans trace des robinetteries.
+              </p>
+            </div>
+          </div>
+
+          <div className="rounded-2xl overflow-hidden border border-slate-200 bg-white shadow-xs">
+            <div className="aspect-4/3 overflow-hidden bg-slate-100">
+              <img
+                src={chaletImg}
+                alt="Chambre de chalet alpin et boiseries montagnardes"
+                className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                referrerPolicy="no-referrer"
+              />
+            </div>
+            <div className="p-5">
+              <h3 className="font-bold text-slate-900 text-sm mb-1.5">
+                Chambres d&apos;hôtes, chalets & gîtes
+              </h3>
+              <p className="text-xs text-slate-600 leading-relaxed">
+                Mise en place soignée de la literie, aération complète et préparation haut de gamme pour l&apos;accueil de vos proches ou vacanciers.
+              </p>
+            </div>
+          </div>
+
+          <div className="rounded-2xl overflow-hidden border border-slate-200 bg-white shadow-xs">
+            <div className="aspect-4/3 overflow-hidden bg-slate-100">
+              <img
+                src={woodworkImg}
+                alt="Boiseries en pin massif et mobilier d'accueil"
+                className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                referrerPolicy="no-referrer"
+              />
+            </div>
+            <div className="p-5">
+              <h3 className="font-bold text-slate-900 text-sm mb-1.5">
+                Boiseries massives & pin de montagne
+              </h3>
+              <p className="text-xs text-slate-600 leading-relaxed">
+                Dépoussiérage délicat respectant les fibres du bois noble, soin des bibliothèques, meubles artisanaux et parquets.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
         <div className="max-w-3xl">
           <span className="text-xs font-semibold uppercase tracking-wider text-teal-700 block mb-1">

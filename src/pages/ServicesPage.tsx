@@ -1,6 +1,9 @@
 import React from 'react';
 import { PageRoute, SiteLegalConfig } from '../types';
 import { Sparkles, Home, Calendar, Clock, CheckCircle2, ShieldCheck, ChevronRight, HelpCircle, Wind, Droplets, HeartHandshake } from 'lucide-react';
+import serviceLivingImg from '../assets/images/real_woodwork_storage_1792000292097.jpg';
+import serviceBathroomImg from '../assets/images/real_shower_bathroom_1792000291064.jpg';
+import serviceBedroomImg from '../assets/images/real_chalet_bedroom_1792000291663.jpg';
 
 interface ServicesPageProps {
   navigate: (path: PageRoute) => void;
@@ -91,6 +94,19 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ navigate, legalConfi
 
           <div className="lg:col-span-5 bg-slate-50 rounded-2xl p-6 flex flex-col justify-between border border-slate-200/80">
             <div>
+              {/* Service Illustration Photo */}
+              <div className="mb-4 overflow-hidden rounded-xl border border-slate-200 shadow-xs relative aspect-16/10">
+                <img
+                  src={serviceLivingImg}
+                  alt="Entretien soigné des boiseries et espaces de vie à Annecy"
+                  className="w-full h-full object-cover"
+                  referrerPolicy="no-referrer"
+                />
+                <span className="absolute bottom-2 left-2 bg-slate-900/80 text-white text-[10px] px-2 py-0.5 rounded font-medium backdrop-blur-xs">
+                  Boiseries & Rangement soigné
+                </span>
+              </div>
+
               <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider block">
                 Rythme & Organisation
               </span>
@@ -104,7 +120,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ navigate, legalConfi
             <div className="pt-6">
               <button
                 onClick={() => navigate('/contact')}
-                className="w-full bg-teal-700 hover:bg-teal-800 text-white font-semibold py-3 rounded-xl text-xs transition-colors shadow-xs flex items-center justify-center gap-2"
+                className="w-full bg-teal-700 hover:bg-teal-800 text-white font-semibold py-3 rounded-xl text-xs transition-colors shadow-xs flex items-center justify-center gap-2 cursor-pointer"
               >
                 <span>Demander un devis régulier</span>
                 <ChevronRight className="w-4 h-4" />
@@ -162,6 +178,19 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ navigate, legalConfi
 
           <div className="lg:col-span-5 bg-slate-50 rounded-2xl p-6 flex flex-col justify-between border border-slate-200/80">
             <div>
+              {/* Service Illustration Photo */}
+              <div className="mb-4 overflow-hidden rounded-xl border border-slate-200 shadow-xs relative aspect-16/10">
+                <img
+                  src={serviceBathroomImg}
+                  alt="Détartrage intensif et traitement faïence et mosaïque à Annecy"
+                  className="w-full h-full object-cover"
+                  referrerPolicy="no-referrer"
+                />
+                <span className="absolute bottom-2 left-2 bg-slate-900/80 text-white text-[10px] px-2 py-0.5 rounded font-medium backdrop-blur-xs">
+                  Douches & Sanitaires immaculés
+                </span>
+              </div>
+
               <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider block">
                 Format Forfaitaire
               </span>
@@ -175,7 +204,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ navigate, legalConfi
             <div className="pt-6">
               <button
                 onClick={() => navigate('/contact')}
-                className="w-full bg-slate-900 hover:bg-slate-800 text-white font-semibold py-3 rounded-xl text-xs transition-colors shadow-xs flex items-center justify-center gap-2"
+                className="w-full bg-slate-900 hover:bg-slate-800 text-white font-semibold py-3 rounded-xl text-xs transition-colors shadow-xs flex items-center justify-center gap-2 cursor-pointer"
               >
                 <span>Planifier un grand nettoyage</span>
                 <ChevronRight className="w-4 h-4" />
@@ -189,18 +218,18 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ navigate, legalConfi
           <div className="lg:col-span-7 space-y-4">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 text-teal-800 text-xs font-semibold">
               <Calendar className="w-4 h-4 text-teal-600" />
-              <span>Fin de bail & Déménagement</span>
+              <span>Fin de bail & Gîtes de montagne</span>
             </div>
             <h2 className="text-2xl font-bold font-serif text-slate-900">
-              Nettoyage d&apos;état des lieux & fin de bail
+              Nettoyage d&apos;état des lieux, fin de bail & gîtes
             </h2>
             <p className="text-sm text-slate-600 leading-relaxed">
-              Pour locataires et propriétaires souhaitant une restitution sans litige. Un protocole rigoureux conforme aux attentes strictes des agences immobilières d&apos;Annecy.
+              Pour locataires, propriétaires et hébergements de vacances (Airbnb, chalets saisonniers). Un protocole rigoureux conforme aux attentes strictes des agences et à l&apos;accueil des voyageurs.
             </p>
 
             <div className="pt-2">
               <h3 className="text-xs font-bold uppercase tracking-wider text-slate-900 mb-3">
-                Points de contrôle agence :
+                Points de contrôle agence & accueil :
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-700">
                 <div className="flex items-center gap-2">
@@ -209,7 +238,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ navigate, legalConfi
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4 text-teal-600 shrink-0" />
-                  <span>Nettoyage des volets roulants & fenêtres</span>
+                  <span>Nettoyage des volets, vasistas & fenêtres</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4 text-teal-600 shrink-0" />
@@ -219,27 +248,48 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ navigate, legalConfi
                   <CheckCircle2 className="w-4 h-4 text-teal-600 shrink-0" />
                   <span>Nettoyage des radiateurs et bouches VMC</span>
                 </div>
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-teal-600 shrink-0" />
+                  <span>Préparation des chambres & literie soignée</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-teal-600 shrink-0" />
+                  <span>Dépoussiérage des boiseries & plinthes</span>
+                </div>
               </div>
             </div>
           </div>
 
           <div className="lg:col-span-5 bg-slate-50 rounded-2xl p-6 flex flex-col justify-between border border-slate-200/80">
             <div>
+              {/* Service Illustration Photo */}
+              <div className="mb-4 overflow-hidden rounded-xl border border-slate-200 shadow-xs relative aspect-16/10">
+                <img
+                  src={serviceBedroomImg}
+                  alt="Préparation soignée des chambres et gîtes de chalet alpin"
+                  className="w-full h-full object-cover"
+                  referrerPolicy="no-referrer"
+                />
+                <span className="absolute bottom-2 left-2 bg-slate-900/80 text-white text-[10px] px-2 py-0.5 rounded font-medium backdrop-blur-xs">
+                  Chambres & Confort montagnard
+                </span>
+              </div>
+
               <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider block">
-                Garantie restitution
+                Garantie restitution & accueil
               </span>
               <div className="mt-3 space-y-2 text-xs text-slate-600">
                 <p>• <strong>Facture détaillée :</strong> Valable comme justificatif auprès de votre propriétaire ou bailleur.</p>
-                <p>• <strong>Réactivité :</strong> Créneaux d&apos;urgence possibles selon calendrier de fin de préavis.</p>
+                <p>• <strong>Réactivité :</strong> Créneaux d&apos;urgence possibles selon calendrier de fin de préavis ou rotation locative.</p>
               </div>
             </div>
 
             <div className="pt-6">
               <button
                 onClick={() => navigate('/contact')}
-                className="w-full bg-teal-700 hover:bg-teal-800 text-white font-semibold py-3 rounded-xl text-xs transition-colors shadow-xs flex items-center justify-center gap-2"
+                className="w-full bg-teal-700 hover:bg-teal-800 text-white font-semibold py-3 rounded-xl text-xs transition-colors shadow-xs flex items-center justify-center gap-2 cursor-pointer"
               >
-                <span>Devis nettoyage état des lieux</span>
+                <span>Devis remise en état & fin de bail</span>
                 <ChevronRight className="w-4 h-4" />
               </button>
             </div>

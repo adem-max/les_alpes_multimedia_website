@@ -3,9 +3,9 @@ import { PageRoute, SiteLegalConfig } from '../types';
 import { Sparkles, Shield, Clock, CheckCircle2, ChevronRight, Home, Calendar, ArrowRight, HeartHandshake, MapPin, Award, Check } from 'lucide-react';
 import { AnnecyMap } from '../components/AnnecyMap';
 import heroImage from '../assets/images/hero_cleaning_context_1790186095831.jpg';
-import galleryLivingRoom from '../assets/images/gallery_living_room_1790186123147.jpg';
-import galleryKitchen from '../assets/images/gallery_kitchen_1790186136804.jpg';
-import galleryBathroom from '../assets/images/gallery_bathroom_1790186147892.jpg';
+import galleryShower from '../assets/images/real_shower_bathroom_1792000291064.jpg';
+import galleryChalet from '../assets/images/real_chalet_bedroom_1792000291663.jpg';
+import galleryWoodwork from '../assets/images/real_woodwork_storage_1792000292097.jpg';
 
 interface HomePageProps {
   navigate: (path: PageRoute) => void;
@@ -208,91 +208,91 @@ export const HomePage: React.FC<HomePageProps> = ({ navigate, legalConfig }) => 
             Exigence & Résultats Visuels
           </span>
           <h2 className="text-2xl sm:text-3xl font-bold font-serif text-slate-900">
-            Nos réalisations dans les intérieurs annéciens
+            Nos interventions réelles dans les intérieurs du bassin d&apos;Annecy
           </h2>
           <p className="text-sm text-slate-600 mt-2">
-            Chaque espace bénéficie d&apos;un traitement méticuleux respectant vos matériaux nobles : parquets, marbres, faïences et grandes baies vitrées.
+            Chaque espace bénéficie d&apos;un soin minutieux adapté aux matériaux nobles savoyards : faïences, mosaïques de douche, carrelages en terre cuite et boiseries en pin massif.
           </p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {/* Gallery 1 */}
+          {/* Gallery 1: Salle de bain / Douche à l'italienne & Mosaïque */}
           <div className="group rounded-2xl overflow-hidden bg-white border border-slate-200 shadow-xs hover:shadow-md transition-all flex flex-col">
             <div className="relative aspect-4/3 overflow-hidden bg-slate-100">
               <img
-                src={galleryLivingRoom}
-                alt="Salon lumineux après dépoussiérage et soin des sols à Annecy"
+                src={galleryShower}
+                alt="Douche à l'italienne avec mosaïque au sol et carrelage terre cuite entretenue par Les Alpes Multiservices"
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 referrerPolicy="no-referrer"
               />
               <div className="absolute top-3 left-3 bg-slate-900/80 backdrop-blur-xs text-white text-[11px] font-medium px-2.5 py-1 rounded-md">
-                Salons & Espaces de vie
+                Douches à l&apos;italienne & Pièces d&apos;eau
               </div>
             </div>
             <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between">
               <div>
-                <h3 className="font-bold text-slate-900 text-sm mb-1">Dépoussiérage méticuleux & éclat des sols</h3>
+                <h3 className="font-bold text-slate-900 text-sm mb-1">Détartrage intensif & éclat des mosaïques</h3>
                 <p className="text-xs text-slate-600 leading-relaxed">
-                  Traitement respectueux des parquets, aspiration sous le mobilier et baies vitrées transparentes avec vue sur les massifs.
+                  Nettoyage des parois vitrées, détartrage des robinetteries, désinfection des sanitaires et respect scrupuleux des sols en terre cuite et mosaïques de galets.
                 </p>
               </div>
               <div className="mt-3 pt-3 border-t border-slate-100 text-[11px] text-teal-800 font-medium flex items-center gap-1.5">
                 <CheckCircle2 className="w-3.5 h-3.5 text-teal-600" />
-                <span>Espace net, aéré et reposant</span>
+                <span>Sanitaires immaculés & joints nets</span>
               </div>
             </div>
           </div>
 
-          {/* Gallery 2 */}
+          {/* Gallery 2: Chambre Chalet & Literie */}
           <div className="group rounded-2xl overflow-hidden bg-white border border-slate-200 shadow-xs hover:shadow-md transition-all flex flex-col">
             <div className="relative aspect-4/3 overflow-hidden bg-slate-100">
               <img
-                src={galleryKitchen}
-                alt="Cuisine assainie et dégraissée"
+                src={galleryChalet}
+                alt="Chambre de chalet alpin avec lit en pin massif préparé avec soin face aux cimes"
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 referrerPolicy="no-referrer"
               />
               <div className="absolute top-3 left-3 bg-slate-900/80 backdrop-blur-xs text-white text-[11px] font-medium px-2.5 py-1 rounded-md">
-                Cuisines & Plans de travail
+                Chambres, Chalets & Gîtes
               </div>
             </div>
             <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between">
               <div>
-                <h3 className="font-bold text-slate-900 text-sm mb-1">Dégraissage complet & chromes étincelants</h3>
+                <h3 className="font-bold text-slate-900 text-sm mb-1">Préparation de gîtes & literie soignée</h3>
                 <p className="text-xs text-slate-600 leading-relaxed">
-                  Nettoyage des crédences, plans en quartz, plaques de cuisson et évier détartré pour une hygiène alimentaire irréprochable.
+                  Mise en place minutieuse du linge, entretien des têtes de lit en pin montagnard, dépoussiérage des imposte-vasistas et aération soignée face aux Alpes.
                 </p>
               </div>
               <div className="mt-3 pt-3 border-t border-slate-100 text-[11px] text-teal-800 font-medium flex items-center gap-1.5">
                 <CheckCircle2 className="w-3.5 h-3.5 text-teal-600" />
-                <span>Surfaces impeccablement saines</span>
+                <span>Accueil haut de gamme & fraîcheur</span>
               </div>
             </div>
           </div>
 
-          {/* Gallery 3 */}
+          {/* Gallery 3: Entrée, Mezzanine & Boiseries en pin */}
           <div className="group rounded-2xl overflow-hidden bg-white border border-slate-200 shadow-xs hover:shadow-md transition-all flex flex-col sm:col-span-2 lg:col-span-1">
             <div className="relative aspect-4/3 overflow-hidden bg-slate-100">
               <img
-                src={galleryBathroom}
-                alt="Salle de bain assainie et détartrée"
+                src={galleryWoodwork}
+                alt="Couloir et étagères en pin massif nettoyés et dépoussiérés avec soin"
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 referrerPolicy="no-referrer"
               />
               <div className="absolute top-3 left-3 bg-slate-900/80 backdrop-blur-xs text-white text-[11px] font-medium px-2.5 py-1 rounded-md">
-                Salles de bain & Sanitaires
+                Boiseries & Agencements Intérieurs
               </div>
             </div>
             <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between">
               <div>
-                <h3 className="font-bold text-slate-900 text-sm mb-1">Détartrage intensif & parois translucides</h3>
+                <h3 className="font-bold text-slate-900 text-sm mb-1">Soin du bois noble & espaces d&apos;accueil</h3>
                 <p className="text-xs text-slate-600 leading-relaxed">
-                  Suppression intégrale du calcaire sur les vitres de douche, robinetteries brillantes et désinfection des faïences.
+                  Dépoussiérage des rayonnages, étagères en pin et plinthes. Lavage adapté des parquets et mise en ordre minutieuse de vos halls et couloirs.
                 </p>
               </div>
               <div className="mt-3 pt-3 border-t border-slate-100 text-[11px] text-teal-800 font-medium flex items-center gap-1.5">
                 <CheckCircle2 className="w-3.5 h-3.5 text-teal-600" />
-                <span>Fraîcheur & éclat sans résidus</span>
+                <span>Chaleur du bois & propreté durable</span>
               </div>
             </div>
           </div>
