@@ -1,6 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { PageRoute, SiteLegalConfig, ServiceType, QuoteFormState } from '../types';
 import { Mail, Phone, MapPin, Send, CheckCircle2, Shield, AlertCircle, Clock, Check, ExternalLink, Sparkles, RotateCcw } from 'lucide-react';
+
+const COOLDOWN_SECONDS = 60; // 60s cooldown between quote requests from same browser
+const MAX_SUBMISSIONS_PER_HOUR = 3; // Maximum 3 quote requests per hour
+const MIN_FILL_TIME_MS = 2500; // Bot speed trap: submissions in <2.5s are rejected
+
+const getRecentSubmissions = (): number[] => {
+  try {
+    const raw = localStorage.getItem('alpes_submission_timestamps');
+    if (!raw) return [];
+    const list: number[] = JSON.parse(raw);
+    const oneHourAgo = Date.now() - 60 * 60 * 1000;
+    return list.filter((t) => typeof t === 'number' && t > oneHourAgo);
+  } catch {
+    return [];
+  }
+};
+
+const recordSubmissionTimestamp = () => {
+  try {
+    const now = Date.now();
+    localStorage.setItem('alpes_last_quote_time', String(now));
+    const recent = getRecentSubmissions();
+    recent.push(now);
+    localStorage.setItem('alpes_submission_timestamps', JSON.stringify(recent.slice(-10)));
+  } catch {
+    // Ignore local storage errors
+  }
+};
 
 const WhatsAppIcon: React.FC<{ className?: string }> = ({ className = 'w-4 h-4' }) => (
   <svg className={className} viewBox="0 0 24 24" fill="currentColor">
@@ -39,8 +67,54 @@ export const ContactPage: React.FC<ContactPageProps> = ({ navigate, legalConfig 
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [dispatchStatus, setDispatchStatus] = useState<'success' | 'fallback'>('success');
+  const [cooldownSecondsLeft, setCooldownSecondsLeft] = useState<number>(0);
+  const [hourlyLimitReached, setHourlyLimitReached] = useState<boolean>(false);
+  const [antiSpamNotice, setAntiSpamNotice] = useState<string | null>(null);
+
+  // Speed-trap to detect bot submission speed (<2.5s from mount)
+  const formMountTimeRef = useRef<number>(Date.now());
 
   const cleanDigitsPhone = legalConfig.contactPhone.replace(/\D/g, ''); // e.g. "33767575659"
+
+  // Check initial cooldown and hourly limit on mount
+  useEffect(() => {
+    try {
+      const lastTimeRaw = localStorage.getItem('alpes_last_quote_time');
+      if (lastTimeRaw) {
+        const lastTime = parseInt(lastTimeRaw, 10);
+        if (!isNaN(lastTime)) {
+          const elapsedSec = Math.floor((Date.now() - lastTime) / 1000);
+          if (elapsedSec < COOLDOWN_SECONDS) {
+            setCooldownSecondsLeft(COOLDOWN_SECONDS - elapsedSec);
+          }
+        }
+      }
+
+      const recent = getRecentSubmissions();
+      if (recent.length >= MAX_SUBMISSIONS_PER_HOUR) {
+        setHourlyLimitReached(true);
+      }
+    } catch {
+      // Ignore storage errors
+    }
+  }, []);
+
+  // Live countdown timer for active cooldown
+  useEffect(() => {
+    if (cooldownSecondsLeft <= 0) return;
+
+    const interval = setInterval(() => {
+      setCooldownSecondsLeft((prev) => {
+        if (prev <= 1) {
+          clearInterval(interval);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [cooldownSecondsLeft]);
 
   const validate = () => {
     const errs: Partial<Record<keyof QuoteFormState, string>> = {};
@@ -73,10 +147,34 @@ export const ContactPage: React.FC<ContactPageProps> = ({ navigate, legalConfig 
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setAntiSpamNotice(null);
 
-    // Spam honeypot trap: silently discard bot submission
+    // 1. Spam honeypot trap: silently discard bot submission without alerting
     if (formData.honeypot) {
-      console.warn('Honeypot filled by bot, discarded.');
+      console.warn('Bot detected via honeypot trap: submission discarded.');
+      setSubmitted(true);
+      return;
+    }
+
+    // 2. Speed-trap: bot submission in under minimum human typing time (< 2.5s)
+    const elapsedSinceMount = Date.now() - formMountTimeRef.current;
+    if (elapsedSinceMount < MIN_FILL_TIME_MS) {
+      console.warn('Bot velocity detected (<2.5s): discarded.');
+      setSubmitted(true);
+      return;
+    }
+
+    // 3. Cooldown throttle check: prevent rapid consecutive sends
+    if (cooldownSecondsLeft > 0) {
+      setAntiSpamNotice(`Protection anti-spam active : veuillez patienter encore ${cooldownSecondsLeft} seconde${cooldownSecondsLeft > 1 ? 's' : ''} avant d'envoyer une nouvelle demande.`);
+      return;
+    }
+
+    // 4. Hourly rate-limit check: maximum submissions per hour
+    const recentSubmissions = getRecentSubmissions();
+    if (recentSubmissions.length >= MAX_SUBMISSIONS_PER_HOUR) {
+      setHourlyLimitReached(true);
+      setAntiSpamNotice('Limite horaire de demandes atteinte (protection anti-abus). Contactez-nous directement par téléphone ou WhatsApp.');
       return;
     }
 
@@ -128,9 +226,21 @@ export const ContactPage: React.FC<ContactPageProps> = ({ navigate, legalConfig 
       } else {
         setDispatchStatus('fallback');
       }
+
+      // Record submission timestamp and activate cooldown throttle
+      recordSubmissionTimestamp();
+      setCooldownSecondsLeft(COOLDOWN_SECONDS);
+
+      const updatedRecent = getRecentSubmissions();
+      if (updatedRecent.length >= MAX_SUBMISSIONS_PER_HOUR) {
+        setHourlyLimitReached(true);
+      }
     } catch (err) {
       console.warn('Network transmission notice:', err);
       setDispatchStatus('fallback');
+      // Even on network error, record lead locally and set throttle to prevent rapid retry flood
+      recordSubmissionTimestamp();
+      setCooldownSecondsLeft(COOLDOWN_SECONDS);
     } finally {
       setIsSubmitting(false);
       setSubmitted(true);
@@ -280,6 +390,8 @@ export const ContactPage: React.FC<ContactPageProps> = ({ navigate, legalConfig 
                         type="button"
                         onClick={() => {
                           setSubmitted(false);
+                          formMountTimeRef.current = Date.now();
+                          setAntiSpamNotice(null);
                           setFormData({
                             fullName: '',
                             email: '',
@@ -303,9 +415,21 @@ export const ContactPage: React.FC<ContactPageProps> = ({ navigate, legalConfig 
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
-                  {/* Honeypot anti-spam trap (invisible to human users) */}
-                  <div className="hidden" aria-hidden="true">
-                    <label htmlFor="website_hp">Ne pas remplir si vous êtes un humain :</label>
+                  {/* Invisible honeypot trap to catch automated web crawlers & bots */}
+                  <div
+                    style={{
+                      position: 'absolute',
+                      opacity: 0,
+                      top: '-9999px',
+                      left: '-9999px',
+                      height: 0,
+                      width: 0,
+                      zIndex: -1,
+                      pointerEvents: 'none',
+                    }}
+                    aria-hidden="true"
+                  >
+                    <label htmlFor="website_hp">Laissez ce champ vide :</label>
                     <input
                       id="website_hp"
                       type="text"
@@ -316,6 +440,63 @@ export const ContactPage: React.FC<ContactPageProps> = ({ navigate, legalConfig 
                       autoComplete="off"
                     />
                   </div>
+
+                  {/* Anti-spam cooldown banner if user attempts rapid multiple submissions */}
+                  {cooldownSecondsLeft > 0 && (
+                    <div className="p-3.5 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-xs flex items-center justify-between gap-3 animate-in fade-in duration-200">
+                      <div className="flex items-center gap-2.5">
+                        <Clock className="w-4 h-4 text-amber-600 shrink-0 animate-spin" />
+                        <div>
+                          <span className="font-semibold block">Délai de sécurité anti-spam actif</span>
+                          <span className="text-amber-800">
+                            Un devis vient d&apos;être envoyé. Prochain envoi disponible dans <strong>{cooldownSecondsLeft}s</strong>.
+                          </span>
+                        </div>
+                      </div>
+                      <span className="px-2.5 py-1 rounded-lg bg-amber-200/80 font-mono font-bold text-amber-950 text-xs shrink-0">
+                        {cooldownSecondsLeft}s
+                      </span>
+                    </div>
+                  )}
+
+                  {/* Hourly quota alert if rate limit reached */}
+                  {hourlyLimitReached && (
+                    <div className="p-4 rounded-xl bg-slate-100 border border-slate-300 text-slate-800 text-xs space-y-2">
+                      <div className="flex items-center gap-2 font-semibold text-slate-900">
+                        <Shield className="w-4 h-4 text-teal-700 shrink-0" />
+                        <span>Protection anti-abus : limite horaire atteinte</span>
+                      </div>
+                      <p className="text-slate-600 leading-relaxed">
+                        Plusieurs demandes ont déjà été transmises depuis ce navigateur au cours de la dernière heure. Pour un traitement immédiat sans attente :
+                      </p>
+                      <div className="flex flex-wrap items-center gap-2 pt-1">
+                        <a
+                          href={`tel:${cleanDigitsPhone}`}
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white font-semibold transition-colors"
+                        >
+                          <Phone className="w-3.5 h-3.5" />
+                          <span>07 67 57 56 59</span>
+                        </a>
+                        <a
+                          href={`https://wa.me/${cleanDigitsPhone}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#25D366] hover:bg-[#20ba59] text-white font-semibold transition-colors"
+                        >
+                          <WhatsAppIcon className="w-3.5 h-3.5" />
+                          <span>WhatsApp direct</span>
+                        </a>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Generic anti-spam notice if any */}
+                  {antiSpamNotice && !hourlyLimitReached && cooldownSecondsLeft === 0 && (
+                    <div className="p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-xs flex items-center gap-2">
+                      <AlertCircle className="w-4 h-4 text-rose-600 shrink-0" />
+                      <span>{antiSpamNotice}</span>
+                    </div>
+                  )}
 
                   <div>
                     <h2 className="text-xl font-bold font-serif text-slate-900">
@@ -546,13 +727,23 @@ export const ContactPage: React.FC<ContactPageProps> = ({ navigate, legalConfig 
                   <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                     <button
                       type="submit"
-                      disabled={isSubmitting}
-                      className="min-h-[46px] w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-teal-700 hover:bg-teal-800 disabled:bg-slate-400 text-white font-semibold px-8 py-3.5 rounded-xl shadow-xs transition-all text-sm cursor-pointer"
+                      disabled={isSubmitting || cooldownSecondsLeft > 0 || hourlyLimitReached}
+                      className="min-h-[46px] w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-teal-700 hover:bg-teal-800 disabled:bg-slate-400 disabled:cursor-not-allowed text-white font-semibold px-8 py-3.5 rounded-xl shadow-xs transition-all text-sm cursor-pointer"
                     >
                       {isSubmitting ? (
                         <>
                           <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
                           <span>Envoi de votre demande en cours...</span>
+                        </>
+                      ) : cooldownSecondsLeft > 0 ? (
+                        <>
+                          <Clock className="w-4 h-4 animate-pulse" />
+                          <span>Délai de sécurité ({cooldownSecondsLeft}s)</span>
+                        </>
+                      ) : hourlyLimitReached ? (
+                        <>
+                          <Shield className="w-4 h-4" />
+                          <span>Limite temporaire atteinte</span>
                         </>
                       ) : (
                         <>
